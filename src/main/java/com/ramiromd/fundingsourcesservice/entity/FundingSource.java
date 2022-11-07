@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="source_type",
+@DiscriminatorColumn(name="source_type", length=16,
         discriminatorType = DiscriminatorType.STRING)
 abstract public class FundingSource {
 
@@ -29,10 +29,13 @@ abstract public class FundingSource {
     @Column
     protected LocalDateTime deletedAt;
 
-    abstract public String getType();
-
     @PrePersist
     public void onPrePersist() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    @Transient
+    public String getType() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
 }

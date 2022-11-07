@@ -20,8 +20,4 @@ public class BankAccount extends FundingSource {
 
     @Column(length = 32, nullable = false)
     private String number;
-
-    public String getType() {
-        return SourceType.BANK_ACCOUNT;
-    }
 }
