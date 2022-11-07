@@ -30,4 +30,9 @@ abstract public class FundingSource {
     protected LocalDateTime deletedAt;
 
     abstract public String getType();
+
+    @PrePersist
+    public void onPrePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
