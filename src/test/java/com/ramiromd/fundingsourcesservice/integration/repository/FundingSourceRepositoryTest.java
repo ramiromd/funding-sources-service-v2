@@ -1,6 +1,5 @@
 package com.ramiromd.fundingsourcesservice.integration.repository;
 
-import com.ramiromd.fundingsourcesservice.entity.BankAccount;
 import com.ramiromd.fundingsourcesservice.entity.FundingSource;
 import com.ramiromd.fundingsourcesservice.repository.FundingSourceRepository;
 import com.ramiromd.fundingsourcesservice.util.seeder.SourceEntitySeeder;
