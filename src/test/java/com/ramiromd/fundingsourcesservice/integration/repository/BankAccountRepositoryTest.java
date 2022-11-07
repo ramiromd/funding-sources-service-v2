@@ -1,8 +1,10 @@
 package com.ramiromd.fundingsourcesservice.integration.repository;
 
 import com.github.javafaker.Faker;
+import com.ramiromd.fundingsourcesservice.data.common.SourceType;
 import com.ramiromd.fundingsourcesservice.entity.BankAccount;
 import com.ramiromd.fundingsourcesservice.repository.BankAccountRepository;
+import com.ramiromd.fundingsourcesservice.util.seeder.SourceEntitySeeder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +22,9 @@ public class BankAccountRepositoryTest {
 
     @Autowired
     private BankAccountRepository repository;
+
+    @Autowired
+    private SourceEntitySeeder sourceEntitySeeder;
 
     private BankAccount createDefaultAccount() {
         Faker faker  = new Faker();
@@ -53,6 +58,7 @@ public class BankAccountRepositoryTest {
         this.repository.save(anAccount);
         assertNotNull(anAccount.getId());
         assertNotNull(anAccount.getCreatedAt());
+        assertEquals(SourceType.BANK_ACCOUNT, anAccount.getType());
     }
 
     @Test
@@ -67,7 +73,16 @@ public class BankAccountRepositoryTest {
         assertEquals(count, this.repository.count());
     }
 
+    @Test
     public void should_return_only_bank_accounts() {
-        // TODO: Implement when exists other funding sources ...
+        int expectedCount = 10;
+        // Create 4 random credit cards & 10 random bank accounts
+        this.sourceEntitySeeder.createManySources(4, expectedCount);
+        List<BankAccount> accounts = this.repository.findAll();
+
+        assertEquals(expectedCount, accounts.size());
+        for (BankAccount account: accounts) {
+            assertEquals(SourceType.BANK_ACCOUNT, account.getType());
+        }
     }
 }

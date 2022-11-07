@@ -1,8 +1,11 @@
 package com.ramiromd.fundingsourcesservice.integration.repository;
 
 import com.ramiromd.fundingsourcesservice.data.common.CardBrandEnum;
+import com.ramiromd.fundingsourcesservice.data.common.SourceType;
+import com.ramiromd.fundingsourcesservice.entity.BankAccount;
 import com.ramiromd.fundingsourcesservice.entity.CreditCard;
 import com.ramiromd.fundingsourcesservice.repository.CreditCardRepository;
+import com.ramiromd.fundingsourcesservice.util.seeder.SourceEntitySeeder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +23,9 @@ public class CreditCardRepositoryTest {
 
     @Autowired
     private CreditCardRepository repository;
+
+    @Autowired
+    private SourceEntitySeeder sourceEntitySeeder;
 
     private CreditCard createDefaultCard() {
         CreditCard aCreditCard = new CreditCard();
@@ -53,6 +59,7 @@ public class CreditCardRepositoryTest {
         this.repository.save(aCreditCard);
         assertNotNull(aCreditCard.getId());
         assertNotNull(aCreditCard.getCreatedAt());
+        assertEquals(SourceType.CREDIT_CARD, aCreditCard.getType());
     }
 
     @Test
@@ -67,7 +74,16 @@ public class CreditCardRepositoryTest {
         assertEquals(count, this.repository.count());
     }
 
+    @Test
     public void should_return_only_credit_cards() {
-        // TODO: Implement when exists other funding sources ...
+        int expectedCount = 6;
+        // Create 6 random credit cards & 2 random bank accounts
+        this.sourceEntitySeeder.createManySources(expectedCount, 2);
+        List<CreditCard> cards = this.repository.findAll();
+
+        assertEquals(expectedCount, cards.size());
+        for (CreditCard card: cards) {
+            assertEquals(SourceType.CREDIT_CARD, card.getType());
+        }
     }
 }
