@@ -40,7 +40,7 @@ public class BankAccountRepositoryTest {
     }
 
     @Test
-    public void should_thrown_an_exception_when_insert_an_empty_card() {
+    public void should_thrown_an_exception_when_insert_an_empty_account() {
         assertThrows(DataIntegrityViolationException.class, () -> {
             BankAccount anAccount = new BankAccount();
             this.repository.save(anAccount);
@@ -48,7 +48,7 @@ public class BankAccountRepositoryTest {
     }
 
     @Test
-    public void it_can_persist_a_credit_card() {
+    public void it_can_persist_a_bank_account() {
         BankAccount anAccount = this.createDefaultAccount();
         this.repository.save(anAccount);
         assertNotNull(anAccount.getId());
@@ -67,7 +67,7 @@ public class BankAccountRepositoryTest {
         assertEquals(count, this.repository.count());
     }
 
-    public void should_return_only_credit_cards() {
+    public void should_return_only_bank_accounts() {
         // TODO: Implement when exists other funding sources ...
     }
 }
