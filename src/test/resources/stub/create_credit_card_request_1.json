@@ -1,0 +1,7 @@
+{
+  "type": "credit_card",
+  "name": "My first credit card",
+  "number": "3428-3071-3218-6112",
+  "expirationDate": "11/26",
+  "cardholderName": "Ramiro Martinez D'Elía"
+}
