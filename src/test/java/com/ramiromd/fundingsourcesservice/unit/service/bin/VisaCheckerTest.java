@@ -28,11 +28,10 @@ public class VisaCheckerTest {
     @Test
     public void should_return_false_when_a_visa_card_is_not_passed() {
         VisaChecker checker = new VisaChecker();
-        List<String> masterCardNumbers = CreditCardNumbers.getMasterCardNumbers();
-        List<String> amexNumbers = CreditCardNumbers.getAmexNumbers();
         List<String> nonVisaNumbers = new ArrayList<String>();
-        nonVisaNumbers.addAll(amexNumbers);
-        nonVisaNumbers.addAll(masterCardNumbers);
+
+        nonVisaNumbers.addAll(CreditCardNumbers.getAmexNumbers());
+        nonVisaNumbers.addAll(CreditCardNumbers.getMasterCardNumbers());
 
         for (String number: nonVisaNumbers) {
             assertFalse(checker.check(number));
