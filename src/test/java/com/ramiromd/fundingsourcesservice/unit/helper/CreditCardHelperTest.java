@@ -20,4 +20,19 @@ public class CreditCardHelperTest {
         // check if the original value is not modified ...
         assertNotEquals(original, sanitized);
     }
+
+    @Test
+    public void it_can_return_a_credit_card_bin() {
+        String input = "4338-4049-5199-7724";
+        String expected = "433840";
+        assertEquals(expected, CreditCardHelper.getBin(input));
+    }
+
+    @Test
+    public void it_can_return_last_four_digits() {
+        String input = "4338-4049-5199-7724";
+        String expected = "7724";
+        assertEquals(expected, CreditCardHelper.getLastFour(input));
+    }
+
 }
