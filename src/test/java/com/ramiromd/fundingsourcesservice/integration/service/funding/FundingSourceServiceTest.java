@@ -1,15 +1,11 @@
 package com.ramiromd.fundingsourcesservice.integration.service.funding;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ramiromd.fundingsourcesservice.data.common.CardBrandEnum;
 import com.ramiromd.fundingsourcesservice.data.common.SourceType;
 import com.ramiromd.fundingsourcesservice.data.request.CreateCreditCardDto;
-import com.ramiromd.fundingsourcesservice.data.request.FundingSourceCreatedDto;
+import com.ramiromd.fundingsourcesservice.data.response.FundingSourceCreatedDto;
 import com.ramiromd.fundingsourcesservice.data.request.contract.CreateFundingSourceInterface;
 import com.ramiromd.fundingsourcesservice.helper.ObjectMapperFactory;
 import com.ramiromd.fundingsourcesservice.service.funding.FundingSourceService;
-import com.ramiromd.fundingsourcesservice.util.helper.CreditCardNumbers;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;

@@ -3,7 +3,7 @@ package com.ramiromd.fundingsourcesservice.service.funding;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ramiromd.fundingsourcesservice.data.common.SourceType;
 import com.ramiromd.fundingsourcesservice.data.request.CreateCreditCardDto;
-import com.ramiromd.fundingsourcesservice.data.request.FundingSourceCreatedDto;
+import com.ramiromd.fundingsourcesservice.data.response.FundingSourceCreatedDto;
 import com.ramiromd.fundingsourcesservice.data.request.contract.CreateFundingSourceInterface;
 import com.ramiromd.fundingsourcesservice.entity.CreditCard;
 import com.ramiromd.fundingsourcesservice.helper.ObjectMapperFactory;

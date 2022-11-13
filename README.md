@@ -57,3 +57,22 @@ definen nuevos objetos de especialización.
 - El código del servicio es más coherente y reduce la posibilidad de que los desarrolladores ejerzan malas practicas.
 - Se pueden listar todos los medios de financiación, exponiendo solo los atributos de la generalización. Luego, cuando
 se solicite el detalle de un medio; el contrato será más específico.
+  
+## Ejemplos
+
+### Creando fuente de fondos
+
+1. Tarjeta de crédito
+
+```
+curl --location --request POST 'localhost:8080/api/v1/sources/' \
+    --header 'X-USER-ID: 123e4567-e89b-12d3-a456-426655440000' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+"type": "credit_card",
+"name": "My first credit card",
+"number": "3428-3071-3218-6112",
+"expirationDate": "11/26",
+"cardholderName": "Ramiro Martinez D'\''Elía"
+}'
+```

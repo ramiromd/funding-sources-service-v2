@@ -1,4 +1,4 @@
-package com.ramiromd.fundingsourcesservice.data.request;
+package com.ramiromd.fundingsourcesservice.data.response;
 
 import lombok.Data;
 
