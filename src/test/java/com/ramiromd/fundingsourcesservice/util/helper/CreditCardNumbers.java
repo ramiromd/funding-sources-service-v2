@@ -17,6 +17,10 @@ public class CreditCardNumbers {
         return Arrays.asList(list);
     }
 
+    public static String getOneVisaNumber() {
+        return getVisaNumbers().get(0);
+    }
+
     public static List<String> getMasterCardNumbers() {
         String[] list = {
                 "5438-2501-6476-9202",
@@ -24,6 +28,10 @@ public class CreditCardNumbers {
         };
 
         return Arrays.asList(list);
+    }
+
+    public static String getOneMasterNumber() {
+        return getMasterCardNumbers().get(0);
     }
 
     public static List<String> getAmexNumbers() {
@@ -36,4 +44,15 @@ public class CreditCardNumbers {
         return Arrays.asList(list);
     }
 
+    public static String getOneAmexNumber() {
+        return getAmexNumbers().get(0);
+    }
+
+    public static String getOneDiscoverNumber() {
+        return "6472-7729-9228-9181";
+    }
+
+    public static String getOneJcbNumber() {
+        return "3576-6076-6071-8479";
+    }
 }
