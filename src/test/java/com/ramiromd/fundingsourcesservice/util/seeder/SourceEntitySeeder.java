@@ -28,7 +28,7 @@ public class SourceEntitySeeder {
 
     public void createManySources(int creditCardCount, int bankAccountCount) {
         this.createManyRandomCreditCards(creditCardCount);
-        this.createManyRandonBankAccounts(bankAccountCount);
+        this.createManyRandomBankAccounts(bankAccountCount);
     }
 
     public void createManyRandomCreditCards(int count) {
@@ -50,7 +50,7 @@ public class SourceEntitySeeder {
         }
     }
 
-    public void createManyRandonBankAccounts(int count) {
+    public void createManyRandomBankAccounts(int count) {
 
         for (int i = 0; i < count; i++) {
 

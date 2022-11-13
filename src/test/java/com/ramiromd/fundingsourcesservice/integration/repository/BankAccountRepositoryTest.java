@@ -1,8 +1,10 @@
 package com.ramiromd.fundingsourcesservice.integration.repository;
 
 import com.github.javafaker.Faker;
+import com.ramiromd.fundingsourcesservice.data.common.CardBrandEnum;
 import com.ramiromd.fundingsourcesservice.data.common.SourceType;
 import com.ramiromd.fundingsourcesservice.entity.BankAccount;
+import com.ramiromd.fundingsourcesservice.entity.CreditCard;
 import com.ramiromd.fundingsourcesservice.repository.BankAccountRepository;
 import com.ramiromd.fundingsourcesservice.util.seeder.SourceEntitySeeder;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,9 +35,9 @@ public class BankAccountRepositoryTest {
 
         aBankAccount.setUserId(UUID.randomUUID().toString());
         aBankAccount.setName("Test bank account");
-        aBankAccount.setBankName(faker.company().name());
-        aBankAccount.setNumber(faker.finance().iban());
-        aBankAccount.setOwner(faker.name().fullName());
+        aBankAccount.setBankName("A test bank name");
+        aBankAccount.setNumber("1234103812908312809381902890");
+        aBankAccount.setOwner("Ramiro Martínez D'Elía");
         return aBankAccount;
     }
 
@@ -59,6 +62,26 @@ public class BankAccountRepositoryTest {
         assertNotNull(anAccount.getId());
         assertNotNull(anAccount.getCreatedAt());
         assertEquals(SourceType.BANK_ACCOUNT, anAccount.getType());
+    }
+
+    @Test
+    public void it_can_find_a_bank_account_by_id() {
+        Optional<BankAccount> retrieved;
+        BankAccount anAccount = this.createDefaultAccount();
+        this.repository.save(anAccount);
+        retrieved = this.repository.findById(anAccount.getId());
+
+        assertTrue(retrieved.isPresent());
+        assertNotNull(retrieved.get().getId());
+        assertNotNull(retrieved.get().getUserId());
+        assertEquals("Test bank account", retrieved.get().getName());
+        assertEquals("Ramiro Martínez D'Elía", retrieved.get().getOwner());
+        assertEquals("1234103812908312809381902890", retrieved.get().getNumber());
+        assertEquals("A test bank name", retrieved.get().getBankName());
+        assertNotNull(retrieved.get().getCreatedAt());
+        assertNull(retrieved.get().getDeletedAt());
+        assertEquals(SourceType.BANK_ACCOUNT, retrieved.get().getType());
+
     }
 
     @Test
