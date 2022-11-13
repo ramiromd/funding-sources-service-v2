@@ -13,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,7 +60,30 @@ public class CreditCardRepositoryTest {
         this.repository.save(aCreditCard);
         assertNotNull(aCreditCard.getId());
         assertNotNull(aCreditCard.getCreatedAt());
+        assertNull(aCreditCard.getDeletedAt());
         assertEquals(SourceType.CREDIT_CARD, aCreditCard.getType());
+    }
+
+    @Test
+    public void it_can_find_a_credit_card_by_id() {
+        Optional<CreditCard> retrieved;
+        CreditCard aCreditCard = this.createDefaultCard();
+        this.repository.save(aCreditCard);
+        retrieved = this.repository.findById(aCreditCard.getId());
+
+        assertTrue(retrieved.isPresent());
+        assertNotNull(retrieved.get().getId());
+        assertNotNull(retrieved.get().getUserId());
+        assertEquals("Test credit card", retrieved.get().getName());
+        assertEquals("Ramiro Martínez D'Elía", retrieved.get().getCardholderName());
+        assertEquals("123456", retrieved.get().getBin());
+        assertEquals(CardBrandEnum.VISA, retrieved.get().getBrand());
+        assertEquals("1234", retrieved.get().getLastFourDigits());
+        assertEquals("11/23", retrieved.get().getExpirationDate());
+        assertNotNull(retrieved.get().getCreatedAt());
+        assertNull(retrieved.get().getDeletedAt());
+        assertEquals(SourceType.CREDIT_CARD, retrieved.get().getType());
+
     }
 
     @Test
