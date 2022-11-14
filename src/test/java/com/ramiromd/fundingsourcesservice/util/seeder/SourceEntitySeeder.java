@@ -9,6 +9,8 @@ import com.ramiromd.fundingsourcesservice.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,7 +33,9 @@ public class SourceEntitySeeder {
         this.createManyRandomBankAccounts(bankAccountCount);
     }
 
-    public void createManyRandomCreditCards(int count) {
+    public List<CreditCard> createManyRandomCreditCards(int count) {
+
+        ArrayList<CreditCard> list = new ArrayList<>();
 
         for(int i = 0; i < count; i++) {
 
@@ -47,10 +51,15 @@ public class SourceEntitySeeder {
             aCreditCard.setExpirationDate("22/11");
 
             this.creditCards.save(aCreditCard);
+            list.add(aCreditCard);
         }
+
+        return list;
     }
 
-    public void createManyRandomBankAccounts(int count) {
+    public List<BankAccount> createManyRandomBankAccounts(int count) {
+
+        ArrayList<BankAccount> list = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
 
@@ -63,6 +72,9 @@ public class SourceEntitySeeder {
             account.setNumber(this.faker.finance().iban("AE"));
 
             this.bankAccounts.save(account);
+            list.add(account);
         }
+
+        return list;
     }
 }

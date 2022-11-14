@@ -6,15 +6,24 @@ import com.ramiromd.fundingsourcesservice.data.request.CreateCreditCardDto;
 import com.ramiromd.fundingsourcesservice.data.response.FundingSourceCreatedDto;
 import com.ramiromd.fundingsourcesservice.data.request.contract.CreateFundingSourceInterface;
 import com.ramiromd.fundingsourcesservice.entity.CreditCard;
+import com.ramiromd.fundingsourcesservice.entity.FundingSource;
 import com.ramiromd.fundingsourcesservice.helper.ObjectMapperFactory;
+import com.ramiromd.fundingsourcesservice.repository.FundingSourceRepository;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class FundingSourceService {
 
+    final private FundingSourceRepository repository;
+
     final private CreditCardService creditCardService;
 
-    public FundingSourceService(CreditCardService creditCardService) {
+    public FundingSourceService(FundingSourceRepository repository, CreditCardService creditCardService) {
+        this.repository = repository;
         this.creditCardService = creditCardService;
     }
 
@@ -33,5 +42,24 @@ public class FundingSourceService {
         }
 
         return output;
+    }
+
+    public void delete(Long id, String userId) {
+
+        FundingSource source;
+        Optional<FundingSource> result = this.repository.findById(id);
+
+        if (result.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        source = result.get();
+
+        if (!source.getUserId().equals(userId)) {
+            throw new SecurityException();
+        }
+
+        source.setDeletedAt(LocalDateTime.now());
+        this.repository.save(source);
     }
 }
